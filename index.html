@@ -43,7 +43,6 @@
       appId: "1:1043047436114:web:07a16ade842311c017b48b"
     };
 
-    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
@@ -52,21 +51,31 @@
     const order = params.get("order");
     const statusEl = document.getElementById("status");
 
+    console.log("biz param:", biz);
+    console.log("order param:", order);
+
     if (!biz || !order) {
       statusEl.textContent = "Invalid link";
       statusEl.className = "invalid";
     } else {
       const orderRef = ref(db, `Businesses/${biz}/orders/${order}`);
+      console.log("Firebase ref path:", `Businesses/${biz}/orders/${order}`);
+
       onValue(orderRef, (snapshot) => {
         const val = snapshot.val();
-        if (val === "ready") {
+        console.log("Order status value from DB:", val);
+        const statusLower = val ? val.toLowerCase() : "";
+        if (statusLower === "ready") {
           statusEl.textContent = `Order #${order} is READY!`;
           statusEl.className = "ready";
-        } else if (val === "preparing") {
+        } else if (statusLower === "preparing") {
           statusEl.textContent = `Order #${order} is being prepared...`;
           statusEl.className = "preparing";
+        } else if (val) {
+          statusEl.textContent = `Order #${order}: "${val}"`;
+          statusEl.className = "invalid";
         } else {
-          statusEl.textContent = `Order #${order}: "${val || "Unknown status"}"`;
+          statusEl.textContent = `Order #${order} status not found`;
           statusEl.className = "invalid";
         }
       });
