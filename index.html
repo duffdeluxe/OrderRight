@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Order Status</title>
   <style>
     body {
@@ -33,7 +33,6 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-    // Paste your Firebase config here
     const firebaseConfig = {
       apiKey: "AIzaSyC5nMerfqD2fUPANsQ4k-1wj97bRL2Ks_k",
       authDomain: "orderright-e708f.firebaseapp.com",
@@ -43,11 +42,11 @@
       messagingSenderId: "1043047436114",
       appId: "1:1043047436114:web:07a16ade842311c017b48b"
     };
-<!--test -->
+
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
-<!--test -->
+
     const params = new URLSearchParams(window.location.search);
     const biz = params.get("biz");
     const order = params.get("order");
@@ -57,7 +56,7 @@
       statusEl.textContent = "Invalid link";
       statusEl.className = "invalid";
     } else {
-      const orderRef = ref(db, `businesses/${biz}/orders/${order}`);
+      const orderRef = ref(db, `Businesses/${biz}/orders/${order}`);
       onValue(orderRef, (snapshot) => {
         const val = snapshot.val();
         if (val === "ready") {
