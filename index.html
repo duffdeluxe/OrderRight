@@ -58,8 +58,8 @@
       statusEl.textContent = "Invalid link";
       statusEl.className = "invalid";
     } else {
-      const orderRef = ref(db, `Businesses/${biz}/orders/${order}`);
-      console.log("Firebase ref path:", `Businesses/${biz}/orders/${order}`);
+      const orderRef = ref(db, `businesses/${biz}/orders/${order}`);
+      console.log("Firebase ref path:", `businesses/${biz}/orders/${order}`);
 
       onValue(orderRef, (snapshot) => {
         const val = snapshot.val();
